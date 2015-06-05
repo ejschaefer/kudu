@@ -388,6 +388,13 @@ namespace Kudu.Core.Jobs
 
                 // Read app.config
                 string exeFilePath = configFilePath.Substring(0, configFilePath.Length - ".config".Length);
+
+                // Only continue to update config file if the corresponding exe file exists
+                if (!FileSystemHelpers.FileExists(exeFilePath))
+                {
+                    return;
+                }
+
                 Configuration config = ConfigurationManager.OpenExeConfiguration(exeFilePath);
 
                 foreach (var appSetting in settings.AppSettings)

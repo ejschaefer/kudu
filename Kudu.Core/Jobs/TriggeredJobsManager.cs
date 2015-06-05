@@ -130,10 +130,10 @@ namespace Kudu.Core.Jobs
         protected override void UpdateJob(TriggeredJob job)
         {
             job.HistoryUrl = BuildJobsUrl(job.Name + "/history");
-            job.LatestRun = BuildLatestJobRun(job.Name);
+            job.LatestRun = GetLatestJobRun(job.Name);
         }
 
-        private TriggeredJobRun BuildLatestJobRun(string jobName)
+        public TriggeredJobRun GetLatestJobRun(string jobName)
         {
             DirectoryInfoBase[] jobRunsDirectories = GetJobRunsDirectories(jobName);
             if (jobRunsDirectories == null || jobRunsDirectories.Length == 0)
